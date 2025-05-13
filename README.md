@@ -32,4 +32,17 @@ pip install -r requirements.txt      # librosa, pydub, soundfile, torch, tqdm �
 # SOX for pitch/tempo
 sudo apt-get install sox libsox-fmt-all
 
-
+## 🗂️ Directory Layout
+├── audio_shift_code/          # data-creation / editing scripts
+│   ├── audio_shift_original.py
+│   ├── audio_shift_tone.py
+│   ├── audio_shift_speed.py
+│   ├── audio_shift_emphasis.py
+│   ├── audio_shift_intonation.py
+│   ├── audio_noise.py
+│   ├── audio_noise_crowd.py
+│   └── combine.py
+├── Figs/                      # paper figures & visualisations
+├── notebooks/                 # analysis & plotting
+├── results/                   # CSVs, tables, figures reproduced
+└── README.md
