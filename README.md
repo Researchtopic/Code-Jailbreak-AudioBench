@@ -7,7 +7,7 @@
 
 <div align="center">
   <!-- GitHub renders PDFs as links; convert to PNG if you prefer inline -->
-  <img src="Figs/framework.pdf" width="85%">
+  <img src="Figs/framework.png" width="85%">
   <br>
   <sub>Figure 1 – End-to-end pipeline: harmful prompts → TTS audio → Audio-Editing Toolbox → Benchmark.</sub>
 </div>
