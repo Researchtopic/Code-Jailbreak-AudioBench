@@ -51,8 +51,6 @@ sudo apt-get install sox libsox-fmt-all
 │   ├── audio_noise_crowd.py
 │   └── combine.py
 ├── Figs/                      # paper figures & visualisations
-├── notebooks/                 # analysis & plotting
-├── results/                   # CSVs, tables, reproduced figures
 └── README.md
 ```
 
