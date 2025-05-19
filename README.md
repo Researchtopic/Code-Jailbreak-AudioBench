@@ -1,12 +1,12 @@
-# Jailbreak-AudioBench  
-### Exhaustive Evaluation & Analysis of Large **Audio**-Language Models under Jailbreak Threats
+# Jailbreak-AudioBench
+
+**In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models**
 
 > **NeurIPS 2025 (submitted)**  
 > This repository hosts the **official implementation, dataset-creation pipeline, and evaluation code** for our paper  
-> *“Jailbreak-AudioBench: Exhaustive Evaluation and Analysis of Large Audio-Language Models under Jailbreak Threats”*.
+> *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
 <div align="center">
-  <!-- GitHub renders PDFs as links; convert to PNG if you prefer inline -->
   <img src="Figs/framework.png" width="85%">
   <br>
   <sub>Figure 1 – End-to-end pipeline: harmful prompts → TTS audio → Audio-Editing Toolbox → Benchmark.</sub>
@@ -14,12 +14,35 @@
 
 ---
 
+<div align="center">
+  <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/" target="_blank">
+    <img src="https://img.shields.io/badge/Project%20Page-Jailbreak--AudioBench-blue?style=for-the-badge&logo=github" alt="Project Page">
+  </a>
+  <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
+    <img src="https://img.shields.io/badge/Hugging%20Face-Dataset-yellow?style=for-the-badge&logo=huggingface" alt="Dataset">
+  </a>
+</div>
+
+---
+
 ## ✨ Highlights
 * **Audio Editing Toolbox (AET)** – seven edits (*Emphasis · Speed · Intonation · Tone · Background-Noise · Celebrity-Accent · Emotion*) implemented in pure Python + SOX under [`audio_shift_code/`](audio_shift_code/).
-* **Jailbreak-AudioBench Dataset** – 4 700 base audios × 20 edits → **94 800** clips (+ Defense subset) covering easy / complex tasks.
+
+<div align="center">
+  <img src="Figs/audio_editing.pdf" width="85%">
+  <br>
+  <sub>Figure 2 – Examples of injecting different audio hidden semantics.</sub>
+</div>
+
+* **Jailbreak-AudioBench Dataset** – 4,700 base audios × 20 edits → **94,800** clips (+ Defense subset) covering easy / complex tasks.
 * **Plug-and-play evaluation** for BLSP, SpeechGPT, Qwen2-Audio, SALMONN, … with automatic safety judgement via **Llama Guard 3**.
 * **Greedy black-box attack search** plus rich visuals  
-  <img src="Figs/tsne%20visualization.jpg" width="75%">
+
+<div align="center">
+  <img src="Figs/grid search heatmap.pdf" width="85%">
+  <br>
+  <sub>Figure 3 – Query-based Audio Editing Jailbreak Attack Success Rate - even GPT-4o-Audio shows vulnerability.</sub>
+</div>
 
 ---
 
@@ -42,14 +65,21 @@ sudo apt-get install sox libsox-fmt-all
 ## 🗂️ Directory Layout
 ```text
 ├── audio_shift_code/          # data-creation / editing scripts
-│   ├── audio_shift_original.py
-│   ├── audio_shift_tone.py
-│   ├── audio_shift_speed.py
-│   ├── audio_shift_emphasis.py
-│   ├── audio_shift_intonation.py
-│   ├── audio_noise.py
-│   ├── audio_noise_crowd.py
-│   └── combine.py
+│   ├── audio_shift_original.py  # original audio generation
+│   ├── audio_shift_tone.py      # tone adjustment
+│   ├── audio_shift_speed.py     # speed adjustment
+│   ├── audio_shift_emphasis.py  # emphasis processing
+│   ├── audio_shift_intonation.py # intonation adjustment
+│   ├── audio_noise.py           # noise addition
+│   ├── audio_noise_crowd.py     # crowd noise
+│   └── combine.py               # combination processing
+├── Inference/                  # model inference code
+│   ├── BLSP.py                  # BLSP model evaluation
+│   ├── VITA1.5.py               # VITA-1.5 model evaluation
+│   ├── gpt4o.py                 # GPT-4o-Audio evaluation
+│   ├── qwen2_audio.py           # Qwen2-Audio evaluation
+│   ├── salmonn_13b.py           # SALMONN-13B evaluation
+│   └── speechgpt.py             # SpeechGPT evaluation
 ├── Figs/                      # paper figures & visualisations
 └── README.md
 ```
@@ -81,9 +111,9 @@ bash scripts/run_all_edits.sh data/base_audio data/edited
 ## 🏃‍♂️ Evaluation
 
 ```bash
-python eval/eval_lalm.py \
+python Inference/eval_lalm.py \
        --model qwen2-audio-7b \
-       --split easy \
+       --split explicit \
        --audio_dir data/edited/tone/+4 \
        --judge llama-guard-3 \
        --save_csv results/qwen2_tone+4.csv
@@ -93,34 +123,67 @@ The script feeds each audio to the chosen LALM, lets **Llama Guard 3** label the
 
 ---
 
-## 📈 Key Results (AdvBench subset)
+## 📈 Key Results (Explicit subset)
 
 | Model | Original | Tone –8 | Tone +8 | Speed ×1.5 | Crowd Noise | **Worst Δ ↑** |
 |-------|---------:|--------:|--------:|-----------:|------------:|--------------:|
-| **BLSP**            | 0.598 | 0.523 | 0.508 | **0.486 ↓** | 0.565 | – 11.2 % |
-| **SpeechGPT**       | 0.025 | 0.011 | 0.000 | 0.004 | **0.033 ↑** | + 0.8 % |
-| **Qwen2-Audio-7B**  | 0.064 | 0.058 | **0.079 ↑** | 0.046 | 0.038 | + 1.5 % |
-| **SALMONN-13B**     | 0.148 | **0.373 ↑** | **0.435 ↑** | **0.413 ↑** | **0.594 ↑** | + 44.6 % |
+| **BLSP**            | 47.5% | 44.4% | 45.1% | **44.9% ↓** | 48.3% | – 2.6% |
+| **SpeechGPT**       | 14.1% | 10.2% | 0.5% | 14.3% | **7.6% ↓** | – 13.6% |
+| **Qwen2-Audio-7B**  | 16.8% | 11.7% | **13.6% ↓** | 17.9% | 9.1% | – 7.7% |
+| **SALMONN-13B**     | 31.3% | **42.8% ↑** | **55.4% ↑** | **8.4% ↓** | **58.9% ↑** | + 27.6% |
 
-*Full tables & t-SNE figures are available in the `results/` and `Figs/` folders.*
+*Full tables & t-SNE figures are available in the `Inference/analysis/` directory.*
+
+---
+
+## 🔍 Code and Paper Correspondence
+
+This codebase implements the complete experimental pipeline described in the paper:
+
+1. **Audio Editing Toolbox** (Section 2) - Implemented in `audio_shift_code/`, supporting seven different types of audio editing operations.
+2. **Dataset Creation** (Section 3) - The complete Jailbreak-AudioBench dataset is constructed using the tools in `audio_shift_code/`.
+3. **Model Evaluation** (Section 3) - Evaluation of all involved LALM models is implemented in the `Inference/` directory.
+4. **Query-based Audio Editing Jailbreak Attack** (Section 4.1) - Implements the greedy search strategy for combined audio edits.
+5. **Defense Method** (Section 4.2) - Evaluates basic defense capabilities by prepending a defense prompt.
 
 ---
 
 ## 📦 Pre-trained Checkpoints
 To respect original licences we only link to external weights:
 
-* **BLSP** – HuggingFace model card  
-* **SALMONN-13B** – HuggingFace model card  
+* **BLSP** – [HuggingFace model card](https://huggingface.co/Bluster/Bluster-TTS-v0.1)
+* **SALMONN-13B** – [HuggingFace model card](https://huggingface.co/SALMONN/SALMONN-13B)
 * Our finetuned **MiniCPM-o** defensive weights – [Zenodo DOI](https://doi.org/10.5281/zenodo.XXXXXX)
 
 ---
 
+## 📑 Data and Resources
+
+<div align="center">
+  <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
+    <img src="https://img.shields.io/badge/Full%20Dataset-Hugging%20Face-yellow?style=for-the-badge&logo=huggingface" alt="Full Dataset">
+  </a>
+  <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/" target="_blank">
+    <img src="https://img.shields.io/badge/More%20Details-Project%20Page-blue?style=for-the-badge&logo=github" alt="More Details">
+  </a>
+</div>
+
+We provide the following resources:
+- **Full Dataset** - Contains all original and edited audio samples.
+- **Editing Toolbox** - Allows researchers to create their own edited versions.
+- **Evaluation Code** - A complete framework for LALM safety evaluation.
+- **Preprocessing Scripts** - For dataset construction and management.
+
+---
+
 ## 📜 Citation
+If you use Jailbreak-AudioBench in your research, please cite our paper:
+
 ```bibtex
-@article{wang2025jailbreakaudiobench,
-  title   = {Jailbreak-AudioBench: Exhaustive Evaluation and Analysis of Large Audio Language Models under Jailbreak Threats},
-  author  = {Firstname Lastname and ...},
-  journal = {Advances in Neural Information Processing Systems},
+@article{cheng2025jailbreakaudiobench,
+  title   = {Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models},
+  author  = {Cheng, Hao and Xiao, Erjia and Shao, Jing and Wang, Yichi and Yang, Le and Sheng, Chao and Torr, Philip and Gu, Jindong and Xu, Renjing},
+  journal = {NeurIPS},
   year    = {2025}
 }
 ```
@@ -130,7 +193,7 @@ To respect original licences we only link to external weights:
 ## ✅ ML Code Completeness Checklist
 - [x] **Dependencies** (`requirements.txt`, conda, SOX install)
 - [x] **Training / data-creation code** (`audio_shift_code/`)
-- [x] **Evaluation code** (`eval/`)  
+- [x] **Evaluation code** (`Inference/`)  
 - [x] **Pre-trained model links**
 - [x] **README** with results + exact reproduction commands
 
