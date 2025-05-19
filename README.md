@@ -29,7 +29,7 @@
 * **Audio Editing Toolbox (AET)** – seven edits (*Emphasis · Speed · Intonation · Tone · Background-Noise · Celebrity-Accent · Emotion*) implemented in pure Python + SOX under [`audio_shift_code/`](audio_shift_code/).
 
 <div align="center">
-  <img src="Figs/audio_editing.pdf" width="85%">
+  <img src="Figs/audio_editing.png" width="85%">
   <br>
   <sub>Figure 2 – Examples of injecting different audio hidden semantics.</sub>
 </div>
@@ -39,7 +39,7 @@
 * **Greedy black-box attack search** plus rich visuals  
 
 <div align="center">
-  <img src="Figs/grid search heatmap.pdf" width="85%">
+  <img src="Figs/grid search heatmap.png" width="85%">
   <br>
   <sub>Figure 3 – Query-based Audio Editing Jailbreak Attack Success Rate - even GPT-4o-Audio shows vulnerability.</sub>
 </div>
