@@ -2,7 +2,6 @@
 
 **In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models**
 
-> **NeurIPS 2025 (submitted)**  
 > This repository hosts the **official implementation, dataset-creation pipeline, and evaluation code** for our paper  
 > *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
