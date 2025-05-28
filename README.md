@@ -1,6 +1,4 @@
-# Jailbreak-AudioBench
-
-**In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models**
+# Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models
 
 > This repository hosts the **official implementation, dataset-creation pipeline, and evaluation code** for our paper  
 > *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
@@ -25,7 +23,7 @@
 ---
 
 ## ✨ Highlights
-* **Audio Editing Toolbox (AET)** – seven edits (*Emphasis · Speed · Intonation · Tone · Background-Noise · Celebrity-Accent · Emotion*) implemented in pure Python + SOX under [`audio_shift_code/`](audio_shift_code/).
+* **Audio Editing Toolbox (AET)** – seven edits (*Emphasis · Speed · Intonation · Tone · Background-Noise · Celebrity-Accent · Emotion*) implemented in pure Python + SOX under [`audio_shift_code`](audio_shift_code/).
 
 <div align="center">
   <img src="Figs/audio_editing.png" width="85%">
@@ -33,9 +31,9 @@
   <sub>Figure 2 – Examples of injecting different audio hidden semantics.</sub>
 </div>
 
-* **Jailbreak-AudioBench Dataset** – 4,700 base audios × 20 edits → **94,800** clips (+ Defense subset) covering easy / complex tasks.
+* **Jailbreak-AudioBench Dataset** – 4,700 base audios × 20 edit types → **94,800** clips (+ Defense subset) covering explicit and implicit jailbreak tasks.
 * **Plug-and-play evaluation** for BLSP, SpeechGPT, Qwen2-Audio, SALMONN, … with automatic safety judgement via **Llama Guard 3**.
-* **Greedy black-box attack search** plus rich visuals  
+* **Query-based Audio Editing Jailbreak Method** plus rich visuals  
 
 <div align="center">
   <img src="Figs/grid search heatmap.png" width="85%">
