@@ -1,5 +1,14 @@
 # Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models
 
+<div align="left">
+  <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/" target="_blank">
+    <img src="https://img.shields.io/badge/Project%20Page-Jailbreak--AudioBench-blue?style=for-the-badge&logo=github" alt="Project Page">
+  </a>
+  <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
+    <img src="https://img.shields.io/badge/Hugging%20Face-Dataset-yellow?style=for-the-badge&logo=huggingface" alt="Dataset">
+  </a>
+</div>
+
 > This repository hosts the **official implementation, dataset-creation pipeline, and evaluation code** for our paper  
 > *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
@@ -7,17 +16,6 @@
   <img src="Figs/framework.png" width="85%">
   <br>
   <sub>Figure 1 – End-to-end pipeline: harmful prompts → TTS audio → Audio-Editing Toolbox → Benchmark.</sub>
-</div>
-
----
-
-<div align="center">
-  <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/" target="_blank">
-    <img src="https://img.shields.io/badge/Project%20Page-Jailbreak--AudioBench-blue?style=for-the-badge&logo=github" alt="Project Page">
-  </a>
-  <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
-    <img src="https://img.shields.io/badge/Hugging%20Face-Dataset-yellow?style=for-the-badge&logo=huggingface" alt="Dataset">
-  </a>
 </div>
 
 ---
@@ -137,26 +135,25 @@ The script feeds each audio to the chosen LALM, lets **Llama Guard 3** label the
 
 This codebase implements the complete experimental pipeline described in the paper:
 
-1. **Audio Editing Toolbox** (Section 2) - Implemented in `audio_shift_code/`, supporting seven different types of audio editing operations.
-2. **Dataset Creation** (Section 3) - The complete Jailbreak-AudioBench dataset is constructed using the tools in `audio_shift_code/`.
-3. **Model Evaluation** (Section 3) - Evaluation of all involved LALM models is implemented in the `Inference/` directory.
-4. **Query-based Audio Editing Jailbreak Attack** (Section 4.1) - Implements the greedy search strategy for combined audio edits.
+1. **Audio Editing Toolbox** (Section 2) - Implemented in `audio_shift_code`, supporting seven different types of audio editing operations.
+2. **Dataset Creation** (Section 3) - The complete Jailbreak-AudioBench dataset is constructed using the tools in `audio_shift_code`.
+3. **Model Evaluation** (Section 3) - Evaluation of all involved LALM models is implemented in `Inference`.
+4. **Query-based Audio Editing Jailbreak Attack** (Section 4.1) - Implements the Query-based Audio Editing Jailbreak method by combining audio edits.
 5. **Defense Method** (Section 4.2) - Evaluates basic defense capabilities by prepending a defense prompt.
 
 ---
 
 ## 📦 Pre-trained Checkpoints
-To respect original licences we only link to external weights:
+This project uses the following third-party models:
 
 * **BLSP** – [HuggingFace model card](https://huggingface.co/Bluster/Bluster-TTS-v0.1)
 * **SALMONN-13B** – [HuggingFace model card](https://huggingface.co/SALMONN/SALMONN-13B)
-* Our finetuned **MiniCPM-o** defensive weights – [Zenodo DOI](https://doi.org/10.5281/zenodo.XXXXXX)
 
 ---
 
 ## 📑 Data and Resources
 
-<div align="center">
+<div align="left">
   <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
     <img src="https://img.shields.io/badge/Full%20Dataset-Hugging%20Face-yellow?style=for-the-badge&logo=huggingface" alt="Full Dataset">
   </a>
@@ -169,21 +166,6 @@ We provide the following resources:
 - **Full Dataset** - Contains all original and edited audio samples.
 - **Editing Toolbox** - Allows researchers to create their own edited versions.
 - **Evaluation Code** - A complete framework for LALM safety evaluation.
-- **Preprocessing Scripts** - For dataset construction and management.
-
----
-
-## 📜 Citation
-If you use Jailbreak-AudioBench in your research, please cite our paper:
-
-```bibtex
-@article{cheng2025jailbreakaudiobench,
-  title   = {Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models},
-  author  = {Cheng, Hao and Xiao, Erjia and Shao, Jing and Wang, Yichi and Yang, Le and Sheng, Chao and Torr, Philip and Gu, Jindong and Xu, Renjing},
-  journal = {NeurIPS},
-  year    = {2025}
-}
-```
 
 ---
 
@@ -196,9 +178,20 @@ If you use Jailbreak-AudioBench in your research, please cite our paper:
 
 ---
 
-## 🤝 Contributing
-Pull requests, issues and feature suggestions are welcome!  
-Please read **`CONTRIBUTING.md`** and abide by the MIT licence.
+## 📜 Citation
+If you use Jailbreak-AudioBench in your research, please cite our paper:
+
+```bibtex
+@misc{cheng2025jailbreakaudiobenchindepthevaluationanalysis,
+      title={Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models}, 
+      author={Hao Cheng and Erjia Xiao and Jing Shao and Yichi Wang and Le Yang and Chao Sheng and Philip Torr and Jindong Gu and Renjing Xu},
+      year={2025},
+      eprint={2501.13772},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD},
+      url={https://arxiv.org/abs/2501.13772}, 
+}
+```
 
 ---
 
