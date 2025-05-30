@@ -38,14 +38,19 @@
   <sub>Figure 3 –– ASR performance of Query-based Audio Editing Jailbreak.</sub>
 </div>
 
-## 🔧 Requirements
+## 🔧 Installation Guide
 
 ```bash
+# Clone repository
+git clone https://github.com/Researchtopic/Code-Jailbreak-AudioBench
+cd Code-Jailbreak-AudioBench
+
+# Create conda environment
 conda create -n audio_editing_jailbreak python=3.10
 conda activate audio_editing_jailbreak
-
 pip install -r requirements.txt
 
+# Install dependencies
 sudo apt-get update
 sudo apt-get install ffmpeg
 sudo apt-get install sox libsox-fmt-all
