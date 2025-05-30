@@ -12,7 +12,7 @@
 > This repository hosts the **official implementation, dataset generation pipeline, and evaluation code** for our paper *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
 <div align="center">
-  <img src="Figs/framework.png" width="100%">
+  <img src="Figs/framework.png" width="90%">
   <br>
   <sub>Figure 1 –– Pipeline: harmful prompts → TTS audio → Audio-Editing Toolbox → Benchmark.</sub>
 </div>
@@ -23,7 +23,7 @@
 * **Audio Editing Toolbox (AET)** ––– seven audio editings (*Emphasis · Speed · Intonation · Tone · Background Noise · Celebrity Accent · Emotion*) implemented in Python under `Editing/`.
 
 <div align="center">
-  <img src="Figs/audio_editing.png" width="100%">
+  <img src="Figs/audio_editing.png" width="90%">
   <br>
   <sub>Figure 2 –– Examples of injecting different audio hidden semantics.</sub>
   <br>
@@ -34,7 +34,7 @@
 * **Query-based Audio Editing Jailbreak Method** combining different audio editing types, achieve higher Attack Success Rate (ASR) on State-of-the-Art LALMs.
 
 <div align="center">
-  <img src="Figs/grid search heatmap.png" width="100%">
+  <img src="Figs/grid search heatmap.png" width="90%">
   <br>
   <sub>Figure 3 –– ASR performance of Query-based Audio Editing Jailbreak.</sub>
 </div>
