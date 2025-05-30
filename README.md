@@ -9,15 +9,14 @@
   </a>
 </div>
 
-> This repository hosts the implementation of **dataset generation pipeline and evaluation code** for our paper *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
+> This repository hosts the implementation of **dataset generation pipeline** and **evaluation code** for our paper *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
 <div align="center">
   <img src="Figs/framework.png" width="90%">
   <br>
   <sub>Figure 1 –– Pipeline: harmful prompts → TTS audio → Audio-Editing Toolbox → Benchmark.</sub>
+  <br>
 </div>
-
----
 
 ## ✨ Highlights
 * **Audio Editing Toolbox (AET)** ––– seven audio editings (*Emphasis · Speed · Intonation · Tone · Background Noise · Celebrity Accent · Emotion*) implemented in Python under `Editing/`.
@@ -39,8 +38,6 @@
   <sub>Figure 3 –– ASR performance of Query-based Audio Editing Jailbreak.</sub>
 </div>
 
----
-
 ## 🔧 Requirements
 
 ```bash
@@ -54,8 +51,6 @@ pip install -r requirements.txt          # librosa, pydub, soundfile, torch, tqd
 # SOX for pitch / tempo
 sudo apt-get install sox libsox-fmt-all
 ```
-
----
 
 ## 🗂️ Directory Layout
 ```text
@@ -79,8 +74,6 @@ sudo apt-get install sox libsox-fmt-all
 └── README.md
 ```
 
----
-
 ## 🏗️ Dataset Generation
 
 ```bash
@@ -95,8 +88,6 @@ python Editing/audio_shift_tone.py
 
 ```
 
----
-
 ## 🏃‍♂️ Evaluation
 
 ```bash
@@ -106,8 +97,6 @@ python Inference/minicpm-o-2.6.py
 # 2️⃣ use Llama Guard 3 to judge whether the jailbreak is successful
 python Inference/analysis/llama3_guard.py
 ```
-
----
 
 ## 📈 Key Results (Explicit Subtype)
 
@@ -120,8 +109,6 @@ python Inference/analysis/llama3_guard.py
 
 *Full tables & t-SNE figures are available in the `Inference/analysis/` directory.*
 
----
-
 ## 🔍 Code and Paper Correspondence
 
 This codebase implements the complete experimental pipeline described in the paper:
@@ -132,14 +119,12 @@ This codebase implements the complete experimental pipeline described in the pap
 4. **Query-based Audio Editing Jailbreak Attack** (Section 4.1) - Implements the Query-based Audio Editing Jailbreak method by combining audio edits.
 5. **Defense Method** (Section 4.2) - Evaluates basic defense capabilities by prepending a defense prompt.
 
----
 
 ## ✅ Code Completeness Checklist
 - [x] **Dependencies** (`requirements.txt`, conda, SOX install)
 - [x] **Dataset Generation Code** (`Editing/`)
 - [x] **Evaluation code** (`Inference/`)
 
----
 
 ## 📦 Pre-trained Models
 This project uses the following third-party models:
@@ -147,7 +132,6 @@ This project uses the following third-party models:
 * **Qwen2-Audio-7B-Instruct** – [HuggingFace model card](https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct)
 * **MiniCPM-o-2.6** – [HuggingFace model card](https://huggingface.co/openbmb/MiniCPM-o-2_6)
 
----
 
 ## 📜 Citation
 If you use Jailbreak-AudioBench in your research, please cite our paper:
@@ -163,7 +147,6 @@ If you use Jailbreak-AudioBench in your research, please cite our paper:
 }
 ```
 
----
 
 ## 📄 Licence
 The code in this repository is released under the **MIT License**.  
