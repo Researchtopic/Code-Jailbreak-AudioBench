@@ -41,14 +41,13 @@
 ## 🔧 Requirements
 
 ```bash
-# create environment
-conda create -n jab python=3.10
-conda activate jab
+conda create -n audio_editing_jailbreak python=3.10
+conda activate audio_editing_jailbreak
 
-# python deps
-pip install -r requirements.txt          # librosa, pydub, soundfile, torch, tqdm …
+pip install -r requirements.txt
 
-# SOX for pitch / tempo
+sudo apt-get update
+sudo apt-get install ffmpeg
 sudo apt-get install sox libsox-fmt-all
 ```
 
