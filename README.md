@@ -9,7 +9,7 @@
   </a>
 </div>
 
-> This repository hosts the **official implementation, dataset generation pipeline, and evaluation code** for our paper *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
+> This repository hosts the implementation of **dataset generation pipeline and evaluation code** for our paper *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
 <div align="center">
   <img src="Figs/framework.png" width="90%">
