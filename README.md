@@ -9,7 +9,7 @@
   </a>
 </div>
 
-> This repository hosts the **official implementation, dataset-creation pipeline, and evaluation code** for our paper  
+> This repository hosts the **official implementation, dataset generation pipeline, and evaluation code** for our paper  
 > *“Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models”*.
 
 <div align="center">
@@ -21,7 +21,7 @@
 ---
 
 ## ✨ Highlights
-* **Audio Editing Toolbox (AET)** – seven edits (*Emphasis · Speed · Intonation · Tone · Background-Noise · Celebrity-Accent · Emotion*) implemented in pure Python + SOX under [`audio_shift_code`](audio_shift_code/).
+* **Audio Editing Toolbox (AET)** ––– seven audio editings (*Emphasis · Speed · Intonation · Tone · Background Noise · Celebrity Accent · Emotion*) implemented in Python under `Editing/`.
 
 <div align="center">
   <img src="Figs/audio_editing.png" width="85%">
@@ -29,9 +29,9 @@
   <sub>Figure 2 – Examples of injecting different audio hidden semantics.</sub>
 </div>
 
-* **Jailbreak-AudioBench Dataset** – 4,700 base audios × 20 edit types → **94,800** clips (+ Defense subset) covering explicit and implicit jailbreak tasks.
-* **Plug-and-play evaluation** for BLSP, SpeechGPT, Qwen2-Audio, SALMONN, … with automatic safety judgement via **Llama Guard 3**.
-* **Query-based Audio Editing Jailbreak Method** plus rich visuals  
+* **Jailbreak-AudioBench Dataset** ––– 4,700 base audios × 20 editing types = **94,800** audio samples covering explicit and implicit jailbreak tasks. The dataset also includes an equal number of defended versions of these audio samples to explore defense strategies against audio editing jailbreaks.
+* **Plug-and-play evaluation** for various Large Audio Language Models (LALMs) with automatic safety judgement via **Llama Guard 3**.
+* **Query-based Audio Editing Jailbreak Method** combining different audio editing types, achieve higher Attack Success Rate (ASR) on State-of-the-Art LALMs.
 
 <div align="center">
   <img src="Figs/grid search heatmap.png" width="85%">
@@ -59,23 +59,23 @@ sudo apt-get install sox libsox-fmt-all
 
 ## 🗂️ Directory Layout
 ```text
-├── audio_shift_code/          # data-creation / editing scripts
-│   ├── audio_shift_original.py  # original audio generation
-│   ├── audio_shift_tone.py      # tone adjustment
-│   ├── audio_shift_speed.py     # speed adjustment
-│   ├── audio_shift_emphasis.py  # emphasis processing
-│   ├── audio_shift_intonation.py # intonation adjustment
-│   ├── audio_noise.py           # noise addition
-│   ├── audio_noise_crowd.py     # crowd noise
-│   └── combine.py               # combination processing
-├── Inference/                  # model inference code
-│   ├── BLSP.py                  # BLSP model evaluation
-│   ├── VITA1.5.py               # VITA-1.5 model evaluation
-│   ├── gpt4o.py                 # GPT-4o-Audio evaluation
-│   ├── qwen2_audio.py           # Qwen2-Audio evaluation
-│   ├── salmonn_13b.py           # SALMONN-13B evaluation
-│   └── speechgpt.py             # SpeechGPT evaluation
-├── Figs/                      # paper figures & visualisations
+├── Editing/                        # dataset generation code
+│   ├── audio_shift_original.py     # original audio generation
+│   ├── audio_shift_tone.py         
+│   ├── audio_shift_speed.py        
+│   ├── audio_shift_emphasis.py     
+│   ├── audio_shift_intonation.py   
+│   ├── audio_noise.py              
+│   ├── audio_noise_crowd.py        
+│   └── combine.py                  
+├── Inference/                 # model inference code
+│   ├── BLSP.py                     
+│   ├── VITA1.5.py                  
+│   ├── gpt4o.py                    
+│   ├── qwen2_audio.py              
+│   ├── salmonn_13b.py              
+│   └── speechgpt.py                
+├── Figs/                           # paper figures & visualisations
 └── README.md
 ```
 
@@ -84,21 +84,15 @@ sudo apt-get install sox libsox-fmt-all
 ## 🏗️ Dataset Generation
 
 ```bash
-# 1️⃣  text → base audios (16 kHz)
-python audio_shift_code/audio_shift_original.py \
-       --csv data/jailbreak_questions.csv \
-       --out_dir data/base_audio
+# 1️⃣ text → base audios (16 kHz)
+python Editing/audio_shift_original.py
 
-# 2️⃣  resample (optional)
-python audio_shift_code/convert_sampling_rate.py \
-       --in_dir data/base_audio --sr 16000
+# 2️⃣ resample (optional)
+python Editing/convert_sampling_rate.py
 
-# 3️⃣  example edit: Tone +4 semitones
-python audio_shift_code/audio_shift_tone.py \
-       --in_dir data/base_audio --out_dir data/tone/+4 --n_steps 4
+# 3️⃣ example edit: Tone +4 semitones
+python Editing/audio_shift_tone.py
 
-# 4️⃣  run *all* edits
-bash scripts/run_all_edits.sh data/base_audio data/edited
 ```
 
 ---
@@ -106,19 +100,16 @@ bash scripts/run_all_edits.sh data/base_audio data/edited
 ## 🏃‍♂️ Evaluation
 
 ```bash
-python Inference/eval_lalm.py \
-       --model qwen2-audio-7b \
-       --split explicit \
-       --audio_dir data/edited/tone/+4 \
-       --judge llama-guard-3 \
-       --save_csv results/qwen2_tone+4.csv
-```
+# 1️⃣ example evaluation: MiniCPM-o-2.6
+python Inference/minicpm-o-2.6.py
 
-The script feeds each audio to the chosen LALM, lets **Llama Guard 3** label the answer, and stores **Attack Success Rate (ASR)** plus raw generations.
+# 2️⃣ use Llama Guard 3 to judge whether the jailbreak is successful
+python Inference/analysis/llama3_guard.py
+```
 
 ---
 
-## 📈 Key Results (Explicit subset)
+## 📈 Key Results (Explicit Subtype)
 
 | Model | Original | Tone –8 | Tone +8 | Speed ×1.5 | Crowd Noise | **Worst Δ ↑** |
 |-------|---------:|--------:|--------:|-----------:|------------:|--------------:|
@@ -135,46 +126,26 @@ The script feeds each audio to the chosen LALM, lets **Llama Guard 3** label the
 
 This codebase implements the complete experimental pipeline described in the paper:
 
-1. **Audio Editing Toolbox** (Section 2) - Implemented in `audio_shift_code`, supporting seven different types of audio editing operations.
-2. **Dataset Creation** (Section 3) - The complete Jailbreak-AudioBench dataset is constructed using the tools in `audio_shift_code`.
-3. **Model Evaluation** (Section 3) - Evaluation of all involved LALM models is implemented in `Inference`.
+1. **Audio Editing Toolbox** (Section 2) - Implemented in `Editing/`, supporting seven different types of audio editing operations.
+2. **Dataset Creation** (Section 3) - The complete Jailbreak-AudioBench dataset is constructed using the tools in `Editing/`.
+3. **Model Evaluation** (Section 3) - Evaluation of all involved LALM models is implemented in `Inference/`.
 4. **Query-based Audio Editing Jailbreak Attack** (Section 4.1) - Implements the Query-based Audio Editing Jailbreak method by combining audio edits.
 5. **Defense Method** (Section 4.2) - Evaluates basic defense capabilities by prepending a defense prompt.
 
 ---
 
-## 📦 Pre-trained Checkpoints
+## ✅ Code Completeness Checklist
+- [x] **Dependencies** (`requirements.txt`, conda, SOX install)
+- [x] **Dataset Generation Code** (`Editing/`)
+- [x] **Evaluation code** (`Inference/`)
+
+---
+
+## 📦 Pre-trained Models
 This project uses the following third-party models:
 
-* **BLSP** – [HuggingFace model card](https://huggingface.co/Bluster/Bluster-TTS-v0.1)
-* **SALMONN-13B** – [HuggingFace model card](https://huggingface.co/SALMONN/SALMONN-13B)
-
----
-
-## 📑 Data and Resources
-
-<div align="left">
-  <a href="https://huggingface.co/datasets/researchtopic/Jailbreak-AudioBench" target="_blank">
-    <img src="https://img.shields.io/badge/Full%20Dataset-Hugging%20Face-yellow?style=for-the-badge&logo=huggingface" alt="Full Dataset">
-  </a>
-  <a href="https://researchtopic.github.io/Jailbreak-AudioBench_Page/" target="_blank">
-    <img src="https://img.shields.io/badge/More%20Details-Project%20Page-blue?style=for-the-badge&logo=github" alt="More Details">
-  </a>
-</div>
-
-We provide the following resources:
-- **Full Dataset** - Contains all original and edited audio samples.
-- **Editing Toolbox** - Allows researchers to create their own edited versions.
-- **Evaluation Code** - A complete framework for LALM safety evaluation.
-
----
-
-## ✅ ML Code Completeness Checklist
-- [x] **Dependencies** (`requirements.txt`, conda, SOX install)
-- [x] **Training / data-creation code** (`audio_shift_code/`)
-- [x] **Evaluation code** (`Inference/`)  
-- [x] **Pre-trained model links**
-- [x] **README** with results + exact reproduction commands
+* **Qwen2-Audio-7B-Instruct** – [HuggingFace model card](https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct)
+* **MiniCPM-o-2.6** – [HuggingFace model card](https://huggingface.co/openbmb/MiniCPM-o-2_6)
 
 ---
 
@@ -184,11 +155,10 @@ If you use Jailbreak-AudioBench in your research, please cite our paper:
 ```bibtex
 @misc{cheng2025jailbreakaudiobenchindepthevaluationanalysis,
       title={Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models}, 
-      author={Hao Cheng and Erjia Xiao and Jing Shao and Yichi Wang and Le Yang and Chao Sheng and Philip Torr and Jindong Gu and Renjing Xu},
+      author={Hao Cheng, Erjia Xiao, Jing Shao, Yichi Wang, Le Yang, Chao Sheng, Philip Torr, Jindong Gu, Renjing Xu},
       year={2025},
       eprint={2501.13772},
       archivePrefix={arXiv},
-      primaryClass={cs.SD},
       url={https://arxiv.org/abs/2501.13772}, 
 }
 ```
