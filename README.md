@@ -143,7 +143,7 @@ If you use Jailbreak-AudioBench in your research, please cite our paper:
 ```bibtex
 @misc{cheng2025jailbreakaudiobenchindepthevaluationanalysis,
       title={Jailbreak-AudioBench: In-Depth Evaluation and Analysis of Jailbreak Threats for Large Audio Language Models}, 
-      author={Hao Cheng, Erjia Xiao, Jing Shao, Yichi Wang, Le Yang, Chao Sheng, Philip Torr, Jindong Gu, Renjing Xu},
+      author={Hao Cheng, Erjia Xiao, Jing Shao, Yichi Wang, Le Yang, Chao Shen, Philip Torr, Jindong Gu, Renjing Xu},
       year={2025},
       eprint={2501.13772},
       archivePrefix={arXiv},
