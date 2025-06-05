@@ -102,17 +102,6 @@ python Inference/minicpm-o-2.6.py
 python Inference/analysis/llama3_guard.py
 ```
 
-## 📈 Key Results (Explicit Subtype)
-
-| Model | Original | Tone –8 | Tone +8 | Speed ×1.5 | Crowd Noise | **Worst Δ ↑** |
-|-------|---------:|--------:|--------:|-----------:|------------:|--------------:|
-| **BLSP**            | 47.5% | 44.4% | 45.1% | **44.9% ↓** | 48.3% | – 2.6% |
-| **SpeechGPT**       | 14.1% | 10.2% | 0.5% | 14.3% | **7.6% ↓** | – 13.6% |
-| **Qwen2-Audio-7B**  | 16.8% | 11.7% | **13.6% ↓** | 17.9% | 9.1% | – 7.7% |
-| **SALMONN-13B**     | 31.3% | **42.8% ↑** | **55.4% ↑** | **8.4% ↓** | **58.9% ↑** | + 27.6% |
-
-*Full tables & t-SNE figures are available in the `Inference/analysis/` directory.*
-
 ## 🔍 Code and Paper Correspondence
 
 This codebase implements the complete experimental pipeline described in the paper:
@@ -124,21 +113,21 @@ This codebase implements the complete experimental pipeline described in the pap
 5. **Defense Method** (Section 4.2) - Evaluates basic defense capabilities by prepending a defense prompt.
 
 
-## ✅ Code Completeness Checklist
-- [x] **Dependencies** (`requirements.txt`, conda, SOX install)
-- [x] **Dataset Generation Code** (`Editing/`)
-- [x] **Evaluation code** (`Inference/`)
-
-
 ## 📦 Pre-trained Models
 This project uses the following third-party models:
 
+* **BLSP** – [Github](https://github.com/cwang621/blsp)
+* **SpeechGPT** – [Github](https://github.com/0nutation/SpeechGPT/tree/main/speechgpt)
 * **Qwen2-Audio-7B-Instruct** – [HuggingFace model card](https://huggingface.co/Qwen/Qwen2-Audio-7B-Instruct)
+* **SALMONN-7B** – [HuggingFace model card](https://huggingface.co/tsinghua-ee/SALMONN-7B)
+* **SALMONN-13B** – [HuggingFace model card](https://huggingface.co/tsinghua-ee/SALMONN)
+* **VITA-1.5** – [HuggingFace model card](https://huggingface.co/VITA-MLLM/VITA-1.5)
+* **R1-AQA** – [HuggingFace model card](https://huggingface.co/mispeech/r1-aqa)
 * **MiniCPM-o-2.6** – [HuggingFace model card](https://huggingface.co/openbmb/MiniCPM-o-2_6)
 
 
 ## 📜 Citation
-If you use Jailbreak-AudioBench in your research, please cite our paper:
+If you use Jailbreak-AudioBench in the research, please cite our paper:
 
 ```bibtex
 @misc{cheng2025jailbreakaudiobenchindepthevaluationanalysis,
